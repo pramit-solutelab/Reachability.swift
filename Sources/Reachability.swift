@@ -40,7 +40,8 @@ public enum ReachabilityError: Error {
 public let ReachabilityChangedNotification = NSNotification.Name("ReachabilityChangedNotification")
 
 public extension Notification.Name {
-    static let reachabilityChanged = Notification.Name("reachabilityChanged")
+    static let reachabilityChangedValue = Notification.Name("reachabilityChanged")
+
 }
 
 public class Reachability {
@@ -271,7 +272,7 @@ fileprivate extension Reachability {
         let notify = { [weak self] in
             guard let self = self else { return }
             self.connection != .unavailable ? self.whenReachable?(self) : self.whenUnreachable?(self)
-            self.notificationCenter.post(name: .reachabilityChanged, object: self)
+            self.notificationCenter.post(name: .reachabilityChangedValue, object: self)
         }
 
         // notify on the configured `notificationQueue`, or the caller's (i.e. `reachabilitySerialQueue`)
